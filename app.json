@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "drinking-game-app",
+    "slug": "drinking-game-app"
+  }
+}
