@@ -24,6 +24,8 @@ Also, I want to try out the new [Expo Router](https://expo.github.io/router) pac
 _Unrelated to the project, but for inspiration..._
 
 - Generate cards from [Deck of Cards API](https://deckofcardsapi.com/)
+- [Supabase](https://supabase.io/) for realtime database management + authentication
+- [Appwrite](https://appwrite.io/) for realtime database management + authentication + graphql
 
 ## 📝 Notes
 
