@@ -5,7 +5,7 @@ import {Player} from "colyseus-schema";
 interface State {
   room: Colyseus.Room<any> | null;
   player: Player | null;
-  setPlayer: (player: Player) => void;
+  setPlayer: (player: Player | null) => void;
   players: Player[];
   setRoom: (room: Colyseus.Room<any>) => void;
   setPlayers: (players: Player[]) => void;
@@ -17,7 +17,7 @@ const useStore = create<State>((set) => ({
   room: null,
   players: [],
   player: null,
-  setPlayer: (player: Player) => set(() => ({player})),
+  setPlayer: (player) => set(() => ({player})),
   setRoom: (room) => set(() => ({room})),
   setPlayers: (players) => set(() => ({players})),
   addPlayer: (player) => set((state) => ({players: [...state.players, player]})),

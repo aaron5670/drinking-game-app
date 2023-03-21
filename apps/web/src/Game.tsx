@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import {useNavigate} from "react-router-dom";
 import useStore from "./store/useStore";
 import {Player} from "colyseus-schema";
@@ -8,7 +8,6 @@ import './App.css'
 function Game() {
   const {room, player, players, setPlayer, setPlayers, addPlayer, removePlayer} = useStore((state) => state);
   const navigate = useNavigate();
-  const [isError, setError] = useState(false);
 
   useEffect(() => {
     if (room) {
@@ -57,10 +56,12 @@ function Game() {
 
   const leaveRoom = () => {
     try {
-      room.leave();
+      return room.leave();
     } catch (e) {
       console.log(e);
     } finally {
+      setPlayers([]);
+      setPlayer(null);
       navigate('/');
     }
   }
