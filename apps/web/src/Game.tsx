@@ -31,8 +31,15 @@ function Game() {
       };
 
       // when a player leaves the room
-      room.state.players.onRemove = (player: Player, key: number) => {
+      room.state.players.onRemove = (player: Player) => {
         removePlayer(player);
+
+        if (player.isHost) {
+          console.log('host left the room')
+          setPlayers([]);
+          room.leave()
+            .then(() => navigate('/'))
+        }
       }
 
       // when the host starts the game
