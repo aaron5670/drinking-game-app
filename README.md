@@ -11,7 +11,7 @@ Also, I want to try out the new [Expo Router](https://expo.github.io/router) pac
 ## ✏️ ToDo
 
 - [x] Create a simple `Swiper` / `Card` component
-- [ ] Add multiplayer support with [Colyseus](https://www.colyseus.io/)
+- [x] Add multiplayer support with [Colyseus](https://www.colyseus.io/)
 - [ ] Get questions from [Open Trivia DB](https://opentdb.com/)
 - [ ] Generate questions with [OpenAI](https://openai.com/)
 - [ ] Add a menu screen
