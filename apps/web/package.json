@@ -9,7 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.5.2",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "colyseus.js": "^0.14.13",
+    "framer-motion": "^10.8.5",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
@@ -22,8 +26,8 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react-swc": "^3.0.0",
+    "colyseus-schema": "*",
     "typescript": "^4.9.5",
-    "vite": "^4.2.0",
-    "colyseus-schema": "*"
+    "vite": "^4.2.0"
   }
 }

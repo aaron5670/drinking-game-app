@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import {ChakraProvider} from "@chakra-ui/react";
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom"
 import Lobby from './Lobby'
-import './index.css'
 import Game from "./Game";
 
 const router = createBrowserRouter([
@@ -21,5 +21,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <RouterProvider router={router}/>
+  <ChakraProvider>
+    <RouterProvider router={router}/>
+  </ChakraProvider>
 )
