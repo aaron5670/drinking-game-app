@@ -8,6 +8,14 @@ OpenAI.
 
 Also, I want to try out the new [Expo Router](https://expo.github.io/router) package.
 
+## 🥅 Goal of the project
+
+I want to create a simple app for mobile devices that allows you to swipe through cards with questions.
+It should be possible to play with multiple players (multiplayer support).
+
+I start with a web app and then I will try to port it to mobile devices. I use Turborepo so I can share code between the
+Mobile and Web app.
+
 ## ✏️ ToDo
 
 - [x] Create a simple `Swiper` / `Card` component
@@ -31,3 +39,9 @@ _Unrelated to the project, but for inspiration..._
 
 - [Expo Router: Docs](https://expo.github.io/router)
 - [Expo Router: Repo](https://github.com/expo/router)
+
+## 📸 Screenshots
+
+![img.png](img.png)
+
+![img_1.png](img_1.png)
