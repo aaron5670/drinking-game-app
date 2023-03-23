@@ -1,5 +1,5 @@
 import {Schema, ArraySchema, type} from "@colyseus/schema";
-import {Player} from "colyseus-schema";
+import {Player} from "@game/colyseus-schema";
 
 export class MyRoomState extends Schema {
   @type("string") roomName: string;

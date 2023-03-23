@@ -12,7 +12,7 @@ import {
   Text
 } from "@chakra-ui/react";
 import React from "react";
-import useStore from "../store/useStore";
+import useStore from "@game/client-state";
 import {useNavigate} from "react-router-dom";
 
 const GameRoom = () => {

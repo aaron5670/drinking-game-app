@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import * as Colyseus from "colyseus.js";
 import {useNavigate} from "react-router-dom";
-import useStore from "./store/useStore";
+import useStore from "@game/client-state";
 import {RoomAvailable} from "colyseus.js";
 import {
   Box,

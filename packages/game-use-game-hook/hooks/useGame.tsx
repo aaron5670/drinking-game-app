@@ -1,13 +1,11 @@
-import React, {useEffect} from 'react';
-import {useNavigate} from "react-router-dom";
-import {Player} from "colyseus-schema";
-import useStore from "../store/useStore";
+import {useEffect} from 'react';
+import {Player} from "@game/colyseus-schema";
+import useStore from "@game/client-state";
 
-function useGame() {
+export const useGame = (navigate: any) => {
   const {
-    room, player, players, gameStarted, setPlayer, setPlayers, addPlayer, removePlayer, startGame
+    room, player, players, gameStarted, setRoom, setPlayer, setPlayers, addPlayer, removePlayer, startGame
   } = useStore((state) => state);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (room) {
@@ -36,7 +34,12 @@ function useGame() {
         if (player.isHost) {
           console.log('Host left the room')
           setPlayers([]);
-          room.leave().then(() => navigate('/'))
+          setPlayer(null);
+          setRoom(null);
+
+          room.leave().then(() => {
+            navigate('/');
+          });
         }
       }
 
@@ -45,12 +48,8 @@ function useGame() {
         console.log(message);
         startGame();
       });
-    } else {
-      return navigate("/");
     }
   }, [room])
 
   return [room, player, players, gameStarted];
 }
-
-export default useGame

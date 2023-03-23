@@ -11,16 +11,20 @@
     "dev": "turbo run dev",
     "dev:mobile": "turbo run dev:mobile",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
     "prettier": "latest",
     "turbo": "latest"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {},
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "yarn@1.22.19",
+  "volta": {
+    "node": "18.15.0",
+    "yarn": "1.22.19"
+  }
 }

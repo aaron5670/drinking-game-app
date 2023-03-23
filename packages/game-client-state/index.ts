@@ -1,6 +1,6 @@
-import {create} from 'zustand'
+import {create} from "zustand";
 import * as Colyseus from "colyseus.js";
-import {Player} from "colyseus-schema";
+import {Player} from "@game/colyseus-schema";
 
 interface State {
   room: Colyseus.Room<any> | null;

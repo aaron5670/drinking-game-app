@@ -1,12 +1,21 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import {useNavigate} from "react-router-dom";
 import {Container, Flex, Heading } from "@chakra-ui/react";
+import {useGame} from "@game/use-game-hook";
 import GameRoom from "./Components/GameRoom";
-import useGame from "./hooks/useGame";
 
 function Game() {
-  const [room, player, players, gameStarted] = useGame();
+  const navigate = useNavigate();
+  const [room, player, players, gameStarted] = useGame(navigate);
+
+  useEffect(() => {
+    if (!room) {
+      navigate('/')
+    }
+  }, [room])
 
   if (!room || !players || !player) {
+    navigate('/');
     return null;
   }
 

@@ -1,6 +1,6 @@
 import {Command} from "@colyseus/command";
 import {MyRoom} from "../rooms/MyRoom";
-import {Player} from "colyseus-schema";
+import {Player} from "@game/colyseus-schema";
 
 interface OnJoinCommandPayload {
   username: string;
