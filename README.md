@@ -16,6 +16,13 @@ It should be possible to play with multiple players (multiplayer support).
 I start with a web app and then I will try to port it to mobile devices. I use Turborepo so I can share code between the
 Mobile and Web app.
 
+## 📦 Packages
+
+- `@game/colyseus-schema` - This package contains the schema definitions for the game state.
+- `@game/client-state` - This package contains the game state that is used by the client.
+- `@game/use-game-hook` - This package contains the hook that is used to connect to the game server and to subscribe to
+  the game state.
+
 ## ✏️ ToDo
 
 - [x] Create a simple `Swiper` / `Card` component
