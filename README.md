@@ -18,9 +18,9 @@ Mobile and Web app.
 
 ## 📦 Packages
 
-- `@game/colyseus-schema` - This package contains the schema definitions for the game state.
-- `@game/client-state` - This package contains the game state that is used by the client.
-- `@game/use-game-hook` - This package contains the hook that is used to connect to the game server and to subscribe to
+- [`@game/colyseus-schema`](https://github.com/aaron5670/drinking-game-app/tree/main/packages/game-colyseus-schema) - This package contains the schema definitions for the game state.
+- [`@game/client-state`](https://github.com/aaron5670/drinking-game-app/tree/main/packages/game-client-state) - This package contains the game state that is used by the client.
+- [`@game/use-game-hook`](https://github.com/aaron5670/drinking-game-app/tree/main/packages/game-use-game-hook) - This package contains the hook that is used to connect to the game server and to subscribe to
   the game state.
 
 ## ✏️ ToDo
