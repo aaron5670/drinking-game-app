@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import {Player} from "@game/colyseus-schema";
-import useStore from "@game/client-state";
+import {useStore} from "@game/client-state";
 
 export const useGame = (navigate: any) => {
   const {
