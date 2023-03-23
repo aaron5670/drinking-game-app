@@ -4,7 +4,17 @@ import {useStore} from "@game/client-state";
 
 export const useGame = (navigate: any) => {
   const {
-    room, player, players, gameStarted, setRoom, setPlayer, setPlayers, addPlayer, removePlayer, startGame
+    room,
+    player,
+    players,
+    gameStarted,
+    setRoom,
+    setPlayer,
+    setPlayers,
+    addPlayer,
+    removePlayer,
+    startGame,
+    setCurrentPlayer
   } = useStore((state) => state);
 
   useEffect(() => {
@@ -27,6 +37,18 @@ export const useGame = (navigate: any) => {
         addPlayer(new Player(username, sessionId, isHost));
       };
 
+      // TODO: Find correct type for changes
+      room.state.gameState.onChange = function (changes: any[]) {
+        changes.forEach((change) => {
+          // if the current player changes
+          if (change.field === "currentPlayer") {
+            setCurrentPlayer(change.value);
+          }
+
+          // here you can listen to other changes
+        })
+      }
+
       // when a player leaves the room
       room.state.players.onRemove = (player: Player) => {
         removePlayer(player);
@@ -47,6 +69,11 @@ export const useGame = (navigate: any) => {
       room.onMessage("startGame", (message) => {
         console.log(message);
         startGame();
+      });
+
+      // when there is an error
+      room.onError.once((code, message) => {
+        console.log(code, message);
       });
     }
   }, [room])

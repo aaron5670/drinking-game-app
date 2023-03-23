@@ -9,8 +9,8 @@ import {
 } from "@chakra-ui/react";
 import React, {useState} from "react";
 
-function CreateGameModal({createGameRoom}: { createGameRoom: (roomName: string) => void }) {
-  const [roomName, setRoomName] = useState(`room-${Math.floor(Math.random() * 999)}`);
+function CreateGameModal({createGameRoom}: { createGameRoom: (gameRoomName: string) => void }) {
+  const [gameRoomName, setGameRoomName] = useState(`room-${Math.floor(Math.random() * 999)}`);
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = React.useRef(null)
 
@@ -32,14 +32,14 @@ function CreateGameModal({createGameRoom}: { createGameRoom: (roomName: string) 
               <FormLabel>Room name</FormLabel>
               <Input
                 placeholder="Aaron's room"
-                value={roomName}
-                onChange={(e) => setRoomName(e.target.value)}
+                value={gameRoomName}
+                onChange={(e) => setGameRoomName(e.target.value)}
               />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='whatsapp' mr={3} onClick={() => createGameRoom(roomName)} ref={initialRef}>
+            <Button colorScheme='whatsapp' mr={3} onClick={() => createGameRoom(gameRoomName)} ref={initialRef}>
               Create
             </Button>
             <Button onClick={onClose}>Cancel</Button>

@@ -4,7 +4,7 @@ import { monitor } from "@colyseus/monitor";
 /**
  * Import your Room files
  */
-import { MyRoom } from "./rooms/MyRoom";
+import { GameRoom } from "./rooms/GameRoom";
 import {LobbyRoom} from "colyseus";
 
 export default Arena({
@@ -16,7 +16,7 @@ export default Arena({
 
         // Expose your game room with realtime listing enabled.
         gameServer
-          .define('my_room', MyRoom)
+          .define('game_room', GameRoom)
           .enableRealtimeListing();
     },
 

@@ -27,12 +27,12 @@ function Lobby() {
   const [allRooms, setAllRooms] = useState<Colyseus.RoomAvailable[]>([]);
 
   useEffect(() => {
-    client.getAvailableRooms("my_room").then((rooms) => {
+    client.getAvailableRooms("game_room").then((rooms) => {
       setAllRooms(rooms)
     });
 
     const timer = setInterval(() => {
-      client.getAvailableRooms("my_room").then((rooms) => {
+      client.getAvailableRooms("game_room").then((rooms) => {
         setAllRooms(rooms)
       });
     }, 500)
@@ -42,9 +42,9 @@ function Lobby() {
     }
   }, [])
 
-  const createGameRoom = (roomName: string) => {
-    client.create('my_room', {
-      roomName,
+  const createGameRoom = (gameRoomName: string) => {
+    client.create('game_room', {
+      gameRoomName,
       username: `user-${Math.floor(Math.random() * 999)}`,
     }).then(room => {
       setRoom(room)
@@ -78,7 +78,7 @@ function Lobby() {
                   return (
                     <Box key={room.roomId} onClick={() => joinRoom(room)} width={450} className="game-room-item">
                       <Heading size='xs' textTransform='uppercase'>
-                        {room.metadata.givenRoomName}
+                        {room.metadata.gameRoomName}
                       </Heading>
                       <Text pt='2' fontSize='sm'>
                         Currently {room.clients} of {room.maxClients} players are in the room

@@ -36,7 +36,7 @@ const GameRoom = () => {
     <main style={{backgroundColor: 'lightcoral'}}>
       <Container>
         <Flex height="100vh" flexDirection="column" alignItems="center" justifyContent="center" gap={10}>
-          <Heading size="3xl" mb={10}>Game room</Heading>
+          <Heading size="3xl" mb={10}>{room.state.gameRoomName}</Heading>
           <Card>
             <CardHeader>
               <Heading size='md'>Players</Heading>

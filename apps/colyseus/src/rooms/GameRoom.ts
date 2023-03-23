@@ -3,36 +3,36 @@ import {RoomState} from "@game/colyseus-schema";
 import {Dispatcher} from "@colyseus/command";
 import {OnJoinCommand} from "../commands/OnJoinCommand";
 import {OnLeaveCommand} from "../commands/OnLeaveCommand";
+import {OnGameStartCommand} from "../commands/OnGameStartCommand";
 
 interface MyRoomOptions {
-  roomName: string;
+  gameRoomName: string;
 }
 
 interface JoinOptions {
   username: string;
 }
 
-export class MyRoom extends Room<RoomState> {
-  private givenRoomName: string;
+export class GameRoom extends Room<RoomState> {
   private dispatcher = new Dispatcher(this);
+  private gameRoomName: string;
 
   onCreate(options: MyRoomOptions) {
     this.setState(new RoomState());
     this.maxClients = 3;
-    this.givenRoomName = options.roomName;
 
+    // set gameRoomName
+    this.state.gameRoomName = options.gameRoomName;
+
+    // set metadata (for lobby)
     this.setMetadata({
-      givenRoomName: this.givenRoomName
+      gameRoomName: options.gameRoomName
     }).then(() => updateLobby(this))
 
-    this.onMessage("startGame", (client, message) => {
-      const player = this.state.players.find(player => player.sessionId === client.sessionId);
-      if (player.isHost) {
-
-        this.setPrivate(true)
-          .then(() => this.broadcast("startGame", "Game is starting..."))
-        console.log('Host is starting the game...')
-      }
+    this.onMessage("startGame", (client) => {
+      this.dispatcher.dispatch(new OnGameStartCommand(), {
+        client
+      });
     });
   }
 
