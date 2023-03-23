@@ -28,7 +28,7 @@ function Game() {
   }
 
   return (
-    <main style={{backgroundColor: 'lightsalmon'}}>
+    <main>
       <Container>
         <Flex height="100vh" flexDirection="column" alignItems="center" justifyContent="center" gap={10}>
           <Heading size="3xl" mb={10}>Game started</Heading>

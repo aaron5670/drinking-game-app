@@ -60,7 +60,7 @@ function Lobby() {
   };
 
   return (
-    <main style={{backgroundColor: 'blanchedalmond'}}>
+    <main>
       <Container>
         <Flex height="100vh" flexDirection="column" alignItems="center" justifyContent="center">
           <Heading size="3xl">Lobby</Heading>
