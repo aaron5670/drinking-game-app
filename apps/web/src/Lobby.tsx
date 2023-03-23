@@ -66,15 +66,17 @@ function Lobby() {
           <Heading size="3xl">Lobby</Heading>
 
           <Card m={20}>
-            <CardHeader>
-              <Heading size='md'>Games</Heading>
-            </CardHeader>
+            {allRooms.length > 0 && (
+              <CardHeader>
+                <Heading size='md'>Games</Heading>
+              </CardHeader>
+            )}
 
             <CardBody>
               <Stack divider={<StackDivider/>} spacing='4'>
                 {allRooms.map((room) => {
                   return (
-                    <Box key={room.roomId} onClick={() => joinRoom(room)} width={300} className="game-room-item">
+                    <Box key={room.roomId} onClick={() => joinRoom(room)} width={450} className="game-room-item">
                       <Heading size='xs' textTransform='uppercase'>
                         {room.metadata.givenRoomName}
                       </Heading>
@@ -86,16 +88,14 @@ function Lobby() {
                 })}
 
                 {allRooms.length === 0 && (
-                  <Box width={300}>
+                  <Box p={5} width={450} textAlign="center">
                     <Heading size='xs' textTransform='uppercase'>
                       No games found
                     </Heading>
                     <Text pt='2' mb="8" fontSize='sm'>
                       Create your game and invite your friends!
                     </Text>
-                    <Center>
-                      <CreateGameModal createGameRoom={createGameRoom}/>
-                    </Center>
+                    <CreateGameModal createGameRoom={createGameRoom}/>
                   </Box>
                 )}
               </Stack>
