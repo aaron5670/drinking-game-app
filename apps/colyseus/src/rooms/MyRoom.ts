@@ -1,7 +1,7 @@
 import {Room, Client, updateLobby} from "colyseus";
-import {MyRoomState} from "./schema/MyRoomState";
-import {OnJoinCommand} from "../commands/OnJoinCommand";
+import {RoomState} from "@game/colyseus-schema";
 import {Dispatcher} from "@colyseus/command";
+import {OnJoinCommand} from "../commands/OnJoinCommand";
 import {OnLeaveCommand} from "../commands/OnLeaveCommand";
 
 interface MyRoomOptions {
@@ -12,12 +12,12 @@ interface JoinOptions {
   username: string;
 }
 
-export class MyRoom extends Room<MyRoomState> {
+export class MyRoom extends Room<RoomState> {
   private givenRoomName: string;
   private dispatcher = new Dispatcher(this);
 
   onCreate(options: MyRoomOptions) {
-    this.setState(new MyRoomState());
+    this.setState(new RoomState());
     this.maxClients = 3;
     this.givenRoomName = options.roomName;
 

@@ -51,5 +51,5 @@ export const useGame = (navigate: any) => {
     }
   }, [room])
 
-  return [room, player, players, gameStarted];
+  return {room, player, players, gameStarted};
 }

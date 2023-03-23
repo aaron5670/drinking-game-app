@@ -6,7 +6,7 @@ import GameRoom from "./Components/GameRoom";
 
 function Game() {
   const navigate = useNavigate();
-  const [room, player, players, gameStarted] = useGame(navigate);
+  const {room, player, players, gameStarted} = useGame(navigate);
 
   useEffect(() => {
     if (!room) {

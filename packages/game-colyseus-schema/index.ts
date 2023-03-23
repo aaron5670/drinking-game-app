@@ -1,1 +1,2 @@
-export * from "./schema/player";
+export * from "./schema/Player";
+export * from "./schema/RoomState";
