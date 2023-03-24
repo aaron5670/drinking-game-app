@@ -7,14 +7,12 @@ export const useGame = (navigate: any) => {
     room,
     player,
     players,
-    gameStarted,
     setRoom,
     setPlayer,
     setPlayers,
     addPlayer,
     removePlayer,
-    startGame,
-    setCurrentPlayer
+    setGameState
   } = useStore((state) => state);
 
   useEffect(() => {
@@ -39,13 +37,8 @@ export const useGame = (navigate: any) => {
 
       // TODO: Find correct type for changes
       room.state.gameState.onChange = function (changes: any[]) {
-        changes.forEach((change) => {
-          // if the current player changes
-          if (change.field === "currentPlayer") {
-            setCurrentPlayer(change.value);
-          }
-
-          // here you can listen to other changes
+        changes.forEach((state) => {
+          setGameState(state.field, state.value);
         })
       }
 
@@ -65,12 +58,6 @@ export const useGame = (navigate: any) => {
         }
       }
 
-      // when the host starts the game
-      room.onMessage("startGame", (message) => {
-        console.log(message);
-        startGame();
-      });
-
       // when there is an error
       room.onError.once((code, message) => {
         console.log(code, message);
@@ -78,5 +65,5 @@ export const useGame = (navigate: any) => {
     }
   }, [room])
 
-  return {room, player, players, gameStarted};
+  return {room, player, players};
 }

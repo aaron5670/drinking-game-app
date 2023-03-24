@@ -63,7 +63,7 @@ function Lobby() {
     <main>
       <Container>
         <Flex height="100vh" flexDirection="column" alignItems="center" justifyContent="center">
-          <Heading size="3xl">Lobby</Heading>
+          <Heading size="3xl" color="white">Lobby</Heading>
 
           <Card m={20}>
             {allRooms.length > 0 && (

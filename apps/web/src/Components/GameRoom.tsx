@@ -16,7 +16,7 @@ import {useStore} from "@game/client-state";
 import {useNavigate} from "react-router-dom";
 
 const GameRoom = () => {
-  const {room, player, players, setPlayers, setRoom, setPlayer} = useStore((state) => state);
+  const {room, player, players, setRoom, setPlayer} = useStore((state) => state);
   const navigate = useNavigate();
 
   const leaveRoom = () => {
@@ -25,7 +25,6 @@ const GameRoom = () => {
     } catch (e) {
       console.log(e);
     } finally {
-      setPlayers([]);
       setPlayer(null);
       setRoom(null);
       navigate('/');
@@ -36,7 +35,7 @@ const GameRoom = () => {
     <main>
       <Container>
         <Flex height="100vh" flexDirection="column" alignItems="center" justifyContent="center" gap={10}>
-          <Heading size="3xl" mb={10}>{room.state.gameRoomName}</Heading>
+          <Heading size="3xl" mb={10} color="white">{room.state.gameRoomName}</Heading>
           <Card>
             <CardHeader>
               <Heading size='md'>Players</Heading>

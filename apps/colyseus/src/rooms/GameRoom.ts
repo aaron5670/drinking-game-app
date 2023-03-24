@@ -4,6 +4,7 @@ import {Dispatcher} from "@colyseus/command";
 import {OnJoinCommand} from "../commands/OnJoinCommand";
 import {OnLeaveCommand} from "../commands/OnLeaveCommand";
 import {OnGameStartCommand} from "../commands/OnGameStartCommand";
+import {OnGenerateQuestionsCommand} from "../commands/OnGenerateQuestionsCommand";
 
 interface MyRoomOptions {
   gameRoomName: string;
@@ -15,7 +16,6 @@ interface JoinOptions {
 
 export class GameRoom extends Room<RoomState> {
   private dispatcher = new Dispatcher(this);
-  private gameRoomName: string;
 
   onCreate(options: MyRoomOptions) {
     this.setState(new RoomState());
@@ -30,9 +30,8 @@ export class GameRoom extends Room<RoomState> {
     }).then(() => updateLobby(this))
 
     this.onMessage("startGame", (client) => {
-      this.dispatcher.dispatch(new OnGameStartCommand(), {
-        client
-      });
+      this.dispatcher.dispatch(new OnGameStartCommand(), { client });
+      this.dispatcher.dispatch(new OnGenerateQuestionsCommand());
     });
   }
 
