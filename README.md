@@ -27,12 +27,12 @@ Mobile and Web app.
 
 - [x] Create a simple `Swiper` / `Card` component
 - [x] Add multiplayer support with [Colyseus](https://www.colyseus.io/)
-- [ ] Get questions from [Open Trivia DB](https://opentdb.com/)
+- [x] Get questions from [Open Trivia DB](https://opentdb.com/)
 - [ ] Generate questions with [OpenAI](https://openai.com/)
-- [ ] Add a menu screen
+- [x] Add a menu screen
 - [ ] Add a scoreboard
-- [ ] Add a timer
-- [ ] Add a chat
+- [ ] Add authentication
+- [ ] Add a timer (optional)
 
 ## 💯 Other cool thingies
 
