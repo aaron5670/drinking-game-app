@@ -4,12 +4,7 @@ import {Player} from "@game/colyseus-schema";
 export type GameStatus = "idle" | "generatingQuestions" | "ready";
 
 export class Question extends Schema {
-  @type("string") category: string;
-  @type("string") type: string;
-  @type("string") difficulty: string;
   @type("string") question: string;
-  @type("string") correct_answer: string;
-  @type(["string"]) incorrect_answers: string[];
 }
 
 export class GameState extends Schema {

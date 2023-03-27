@@ -25,11 +25,10 @@ Mobile and Web app.
 
 ## ✏️ ToDo
 
-- [x] Create a simple `Swiper` / `Card` component
 - [x] Add multiplayer support with [Colyseus](https://www.colyseus.io/)
 - [x] Get questions from [Open Trivia DB](https://opentdb.com/)
-- [ ] Generate questions with [OpenAI](https://openai.com/)
-- [x] Add a menu screen
+- [x] Generate questions with [OpenAI](https://openai.com/)
+- [ ] Add a menu screen
 - [ ] Add a scoreboard
 - [ ] Add authentication
 - [ ] Add a timer (optional)

@@ -36,7 +36,7 @@
     "@colyseus/monitor": "^0.14.22",
     "colyseus": "^0.14.24",
     "cors": "^2.8.5",
-    "html-entities": "^2.3.3",
+    "openai": "^3.2.1",
     "express": "^4.16.4",
     "@game/colyseus-schema": "*"
   }

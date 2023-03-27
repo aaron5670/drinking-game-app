@@ -16,6 +16,7 @@ import {useGame} from "@game/use-game-hook";
 import {useStore} from "@game/client-state";
 import GameRoom from "./Components/GameRoom";
 import * as Colyseus from "colyseus.js";
+import LoadingSpinner from "./Components/LoadingSpinner";
 
 const client = new Colyseus.Client('ws://localhost:2567');
 
@@ -52,15 +53,7 @@ function Game() {
         <Flex height="100vh" flexDirection="column" alignItems="center" justifyContent="center" gap={10}>
           <Heading size="3xl" mb={10} color="white">Game started</Heading>
           {gameState?.gameStatus === "generatingQuestions" && (
-            <>
-              <Spinner
-                thickness='4px'
-                speed='0.65s'
-                color='white'
-                size='xl'
-              />
-              <Text fontSize="2xl" color="white">Generating some questions...</Text>
-            </>
+            <LoadingSpinner message={"Generating some questions..."} />
           )}
 
           {gameState?.gameStatus === "ready" && (
@@ -68,12 +61,9 @@ function Game() {
               {gameState?.currentPlayer && gameState?.currentPlayer.sessionId === player.sessionId ? (
                 <>
                   <Card align='center' w={500}>
-                    <CardHeader>
-                      <Heading>{gameState?.questions[0]?.category}</Heading>
+                    <CardHeader textAlign="center">
+                      <Heading fontSize="2xl">{gameState?.questions?.[0].question}</Heading>
                     </CardHeader>
-                    <CardBody>
-                      <Text size='md' textAlign="center">{decodeURIComponent(gameState?.questions[0]?.question)}</Text>
-                    </CardBody>
                     <CardFooter w={500} justifyContent="space-around">
                       <Button size="lg" colorScheme='whatsapp'>True</Button>
                       <Button size="lg" colorScheme='red'>False</Button>
