@@ -7,7 +7,7 @@ import {
   Box,
   Card,
   CardBody,
-  CardHeader, Center,
+  CardHeader,
   Container,
   Flex,
   Heading,
@@ -48,15 +48,12 @@ function Lobby() {
       username: `user-${Math.floor(Math.random() * 999)}`,
     }).then(room => {
       setRoom(room)
-      navigate('/game')
+      navigate(`/game/${room.id}`, {state: {host: true}})
     })
   }
 
   const joinRoom = (room: RoomAvailable) => {
-    client.joinById(room.roomId, {username: `user-${Math.floor(Math.random() * 999)}`}).then(room => {
-      setRoom(room);
-      navigate('/game');
-    })
+    navigate(`/game/${room.roomId}`)
   };
 
   return (

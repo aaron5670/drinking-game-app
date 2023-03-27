@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {
   Button,
   Card,
@@ -15,20 +15,28 @@ import {
 import {useGame} from "@game/use-game-hook";
 import {useStore} from "@game/client-state";
 import GameRoom from "./Components/GameRoom";
+import * as Colyseus from "colyseus.js";
+
+const client = new Colyseus.Client('ws://localhost:2567');
 
 function Game() {
   const navigate = useNavigate();
-  const {room, player, players} = useGame(navigate);
-  const {gameState} = useStore((state) => state);
+  const {room, player} = useGame(navigate);
+  const {gameState, setRoom} = useStore((state) => state);
+  const {roomId} = useParams();
 
   useEffect(() => {
-    if (!room) {
-      navigate('/')
+    if (roomId && !room) {
+      client.joinById(roomId, {username: `user-${Math.floor(Math.random() * 999)}`})
+        .then(room => setRoom(room))
+        .catch((e) => {
+          console.log(e)
+          navigate('/')
+        });
     }
-  }, [room])
+  }, [room, roomId])
 
-  if (!room || !players || !player) {
-    navigate('/');
+  if (!room || !player) {
     return null;
   }
 
