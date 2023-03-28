@@ -19,7 +19,7 @@ import CreateGameModal from "./Components/CreateGameModal";
 
 import './style.css';
 
-const client = new Colyseus.Client('ws://localhost:2567');
+const client = new Colyseus.Client(import.meta.env.VITE_COLYSEUS_SERVER_URL);
 
 function Lobby() {
   const {setRoom} = useStore((state) => state)
