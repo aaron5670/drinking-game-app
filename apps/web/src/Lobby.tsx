@@ -62,7 +62,7 @@ function Lobby() {
         <Flex height="100vh" flexDirection="column" alignItems="center" justifyContent="center">
           <Heading size="3xl" color="white">Lobby</Heading>
 
-          <Card m={20} w={300}>
+          <Card m={20} w={[300, 400, 500]}>
             {allRooms.length > 0 && (
               <CardHeader>
                 <Heading size='md'>Games</Heading>
@@ -101,7 +101,7 @@ function Lobby() {
 
           {allRooms.length > 0 && (
             <Card>
-              <CardBody w={500}>
+              <CardBody w={[300, 400, 500]}>
                 <Flex justifyContent='space-between' alignItems='center'>
                   <Text>Do you want your own game room?</Text>
                   <CreateGameModal createGameRoom={createGameRoom}/>

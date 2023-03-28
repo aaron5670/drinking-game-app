@@ -44,7 +44,7 @@ const GameRoom = () => {
               <Stack divider={<StackDivider/>} spacing='4'>
                 {players.map((player) => {
                   return (
-                    <Box key={player.sessionId} width={300}>
+                    <Box key={player.sessionId} w={[300, 400, 500]}>
                       <Text fontSize='sm'>
                         {player.username}
                       </Text>
