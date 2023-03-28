@@ -11,12 +11,26 @@ const openai = new OpenAIApi(configuration);
 const totalQuestions = 1;
 const language = "Dutch";
 const category: string = null;
-const model = "gpt-3.5-turbo"; // 'gpt-4' is also possible, but is more expensive
+const model = "gpt-3.5-turbo"; // 'gpt-4' is more creative, but is more expensive...
+const testMode = true;
 
 export class OnGenerateQuestionsCommand extends Command<GameRoom> {
   execute() {
     this.state.gameState.gameStatus = "generatingQuestions";
 
+    if (testMode) {
+      // set fake questions
+      this.state.gameState.questions = [new Question({question: "Wie heeft de meeste tattoos?"})];
+
+      // set random player as current player
+      this.state.gameState.currentPlayer = this.state.players[Math.floor(Math.random() * this.state.players.length)];
+
+      // set game status to ready
+      this.state.gameState.gameStatus = "ready";
+      return;
+    }
+
+    console.log('Generating questions...')
     openai.createChatCompletion({
       model,
       temperature: 1.0,
