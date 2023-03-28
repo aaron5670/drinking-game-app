@@ -1,40 +1,42 @@
 import {Command} from "@colyseus/command";
 import {GameRoom} from "../rooms/GameRoom";
 import {Question} from "@game/colyseus-schema";
-
-const {Configuration, OpenAIApi} = require("openai");
+import {Configuration, OpenAIApi} from "openai";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
+const totalQuestions = 2;
+const language = "Dutch";
+const category: string = null;
+
 export class OnGenerateQuestionsCommand extends Command<GameRoom> {
   execute() {
     this.state.gameState.gameStatus = "generatingQuestions";
 
     openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      temperature: 0.9,
-      top_p: 1.0,
+      model: "gpt-4",
+      temperature: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
       messages: [
         {
           role: "system",
-          content: "You are DrinkingGameGPT. This is a drinking game where you make up the questions. There are always two to nine players playing this game. The questions you make up are always about someone, and the idea is for the other players to vote for each other. The only thing you need to do is to create 3 questions and display them by enumeration. The game is meant for adults, so the questions can be based on that, but funny or serious questions are also allowed. Be as creative as you can with the questions. The questions must be in Dutch, and it is really important that there is no text other than the question text. Format the questions as an unordered list."
-        },
-        {
-          role: "assistant",
-          content: "- Wie heeft er wel eens een dronken blunder begaan?\n" +
-            "- Wie kan er het beste dansen na een paar drankjes?\n" +
-            "- Wie wordt er het snelst emotioneel na een paar drankjes?\n" +
-            "- Wie heeft er wel eens gezoend met een vreemde in een bar?\n" +
-            "- Wie kan er het beste tegen zijn/haar drankjes?"
+          content:
+            "You are DrinkingGameGPT. This is a drinking game where you make up the questions. " +
+            "There are always multiple players participating. " +
+            "The questions you make up are always about someone. The idea is that the other players vote on who the question is about. " +
+            "The only thing you need to do is to generate questions and display them by enumeration. " +
+            "The game is meant for adults, so the questions can be based on that, but funny or serious questions are also allowed. " +
+            "Be as creative as you can with the questions. " +
+            `The questions must be in ${language}, and it is really important that there is no text other than the question text. ` +
+            "Format the questions as an unordered list.",
         },
         {
           role: "user",
-          content: "Generate 3 questions"
+          content: `Generate ${totalQuestions} random questions ${category ? `about ${category}.` : "."}`,
         },
       ],
     })
