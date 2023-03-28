@@ -8,16 +8,17 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const totalQuestions = 2;
+const totalQuestions = 1;
 const language = "Dutch";
 const category: string = null;
+const model = "gpt-3.5-turbo"; // 'gpt-4' is also possible, but is more expensive
 
 export class OnGenerateQuestionsCommand extends Command<GameRoom> {
   execute() {
     this.state.gameState.gameStatus = "generatingQuestions";
 
     openai.createChatCompletion({
-      model: "gpt-4",
+      model,
       temperature: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
