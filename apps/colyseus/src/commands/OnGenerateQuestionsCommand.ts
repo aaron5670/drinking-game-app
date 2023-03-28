@@ -56,11 +56,13 @@ export class OnGenerateQuestionsCommand extends Command<GameRoom> {
       ],
     })
       .then((data: any) => {
+        console.log('Questions generated!')
         return data.data.choices[0].message.content
           .split("- ")
           .map((question: string) => new Question({question: question}));
       })
       .then((questions: Question[]) => {
+        console.log('Questions set!')
         // set questions (slice first element because it is empty)
         this.state.gameState.questions = questions.slice(1, questions.length);
 
