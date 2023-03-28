@@ -62,7 +62,7 @@ function Lobby() {
         <Flex height="100vh" flexDirection="column" alignItems="center" justifyContent="center">
           <Heading size="3xl" color="white">Lobby</Heading>
 
-          <Card m={20}>
+          <Card m={20} w={300}>
             {allRooms.length > 0 && (
               <CardHeader>
                 <Heading size='md'>Games</Heading>
@@ -73,7 +73,7 @@ function Lobby() {
               <Stack divider={<StackDivider/>} spacing='4'>
                 {allRooms.map((room) => {
                   return (
-                    <Box key={room.roomId} onClick={() => joinRoom(room)} width={450} className="game-room-item">
+                    <Box key={room.roomId} onClick={() => joinRoom(room)} className="game-room-item">
                       <Heading size='xs' textTransform='uppercase'>
                         {room.metadata.gameRoomName}
                       </Heading>
@@ -85,7 +85,7 @@ function Lobby() {
                 })}
 
                 {allRooms.length === 0 && (
-                  <Box p={5} width={450} textAlign="center">
+                  <Box p={5} textAlign="center">
                     <Heading size='xs' textTransform='uppercase'>
                       No games found
                     </Heading>

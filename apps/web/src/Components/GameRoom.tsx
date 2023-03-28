@@ -55,13 +55,13 @@ const GameRoom = () => {
             </CardBody>
           </Card>
           <Card>
-            <CardBody w={600}>
+            <CardBody>
               <Flex justifyContent='space-between' alignItems='center'>
                 {player.isHost && <Button onClick={() => room.send('startGame')} colorScheme="whatsapp">Start game</Button>}
                 {player.isHost ? (
-                  <Text>You are the host of this room</Text>
+                  <Text px={3} textAlign="center">You are the host of this room</Text>
                 ) : (
-                  <Text>Do you want to leave the room?</Text>
+                  <Text px={3} textAlign="center">Do you want to leave the room?</Text>
                 )}
                 <Button onClick={leaveRoom} colorScheme="red">Leave room</Button>
               </Flex>

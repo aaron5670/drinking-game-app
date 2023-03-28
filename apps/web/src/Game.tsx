@@ -3,14 +3,11 @@ import {useNavigate, useParams} from "react-router-dom";
 import {
   Button,
   Card,
-  CardBody,
   CardFooter,
   CardHeader,
   Container,
   Flex,
   Heading,
-  Spinner,
-  Text
 } from "@chakra-ui/react";
 import {useGame} from "@game/use-game-hook";
 import {useStore} from "@game/client-state";
@@ -23,7 +20,7 @@ const client = new Colyseus.Client(import.meta.env.VITE_COLYSEUS_SERVER_URL);
 function Game() {
   const navigate = useNavigate();
   const {room, player} = useGame(navigate);
-  const {gameState, setRoom} = useStore((state) => state);
+  const {players, gameState, setRoom} = useStore((state) => state);
   const {roomId} = useParams();
 
   useEffect(() => {
@@ -53,27 +50,20 @@ function Game() {
         <Flex height="100vh" flexDirection="column" alignItems="center" justifyContent="center" gap={10}>
           <Heading size="3xl" mb={10} color="white">Game started</Heading>
           {gameState?.gameStatus === "generatingQuestions" && (
-            <LoadingSpinner message={"Generating some questions..."} />
+            <LoadingSpinner message={"Generating some questions..."}/>
           )}
 
           {gameState?.gameStatus === "ready" && (
-            <>
-              {gameState?.currentPlayer && gameState?.currentPlayer.sessionId === player.sessionId ? (
-                <>
-                  <Card align='center' w={500}>
-                    <CardHeader textAlign="center">
-                      <Heading fontSize="2xl">{gameState?.questions?.[0].question}</Heading>
-                    </CardHeader>
-                    <CardFooter w={500} justifyContent="space-around">
-                      <Button size="lg" colorScheme='whatsapp'>True</Button>
-                      <Button size="lg" colorScheme='red'>False</Button>
-                    </CardFooter>
-                  </Card>
-                </>
-              ) : (
-                <Heading size="xl" color="white">It's not your turn</Heading>
-              )}
-            </>
+            <Card align='center'>
+              <CardHeader textAlign="center">
+                <Heading fontSize="2xl">{gameState?.questions?.[0].question}</Heading>
+              </CardHeader>
+              <CardFooter justifyContent="space-around">
+                {players.filter((p) => p.sessionId !== player.sessionId).map((p) => (
+                  <Button key={p.sessionId} size="lg" colorScheme='whatsapp'>{p.username}</Button>
+                ))}
+              </CardFooter>
+            </Card>
           )}
         </Flex>
       </Container>
