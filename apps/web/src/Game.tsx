@@ -18,7 +18,7 @@ import GameRoom from "./Components/GameRoom";
 import * as Colyseus from "colyseus.js";
 import LoadingSpinner from "./Components/LoadingSpinner";
 
-const client = new Colyseus.Client('ws://localhost:2567');
+const client = new Colyseus.Client(import.meta.env.VITE_COLYSEUS_SERVER_URL);
 
 function Game() {
   const navigate = useNavigate();
