@@ -20,12 +20,12 @@
     "turbo": "^1.8.6"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": "16.18.1"
   },
   "dependencies": {},
   "packageManager": "yarn@1.22.19",
   "volta": {
-    "node": "18.15.0",
+    "node": "16.18.1",
     "yarn": "1.22.19"
   }
 }
