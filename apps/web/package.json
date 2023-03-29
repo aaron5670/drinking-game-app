@@ -13,6 +13,8 @@
     "@chakra-ui/react": "^2.5.2",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@game/client-state": "*",
+    "@game/use-game-hook": "*",
     "colyseus.js": "^0.14.13",
     "framer-motion": "^10.8.5",
     "localforage": "^1.10.0",

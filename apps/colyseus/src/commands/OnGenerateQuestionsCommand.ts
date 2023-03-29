@@ -12,7 +12,7 @@ const totalQuestions = 1;
 const language = "Dutch";
 const category: string = null;
 const model = "gpt-3.5-turbo"; // 'gpt-4' is more creative, but is more expensive...
-const testMode = false;
+const testMode = true;
 
 export class OnGenerateQuestionsCommand extends Command<GameRoom> {
   execute() {
@@ -20,7 +20,11 @@ export class OnGenerateQuestionsCommand extends Command<GameRoom> {
 
     if (testMode) {
       // set fake questions
-      this.state.gameState.questions = [new Question({question: "Wie heeft de meeste tattoos?"})];
+      this.state.gameState.questions = [
+        new Question({question: "Wie heeft de meeste tattoos?"}),
+        new Question({question: "Wie gaat het vaakst op vakantie?"}),
+        new Question({question: "Wie heeft de meeste huisdieren?"}),
+      ];
 
       // set random player as current player
       this.state.gameState.currentPlayer = this.state.players[Math.floor(Math.random() * this.state.players.length)];

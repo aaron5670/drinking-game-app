@@ -19,7 +19,7 @@ export class GameRoom extends Room<RoomState> {
 
   onCreate(options: MyRoomOptions) {
     this.setState(new RoomState());
-    this.maxClients = 3;
+    this.maxClients = 8;
 
     // set gameRoomName
     this.state.gameRoomName = options.gameRoomName;
