@@ -14,7 +14,7 @@ const client = new Colyseus.Client(colyseusApiUrl);
 export default function Game() {
   const router = useRouter();
   // @ts-ignore
-  const {roomId, gameRoomName, username}: {roomId: string, gameRoomName: string, username: string} = useSearchParams();
+  const {roomId, username}: {roomId: string, username: string} = useSearchParams();
   const {players, setRoom, setPlayer, setPlayers} = useStore((state) => state);
   const {room, player} = useGame(router.push);
 
@@ -25,7 +25,7 @@ export default function Game() {
         .then(room => setRoom(room))
         .catch((e) => {
           console.log(e)
-          router.replace("/");
+          router.replace(username ? `/lobby?username=${username}` : '/');
         });
     }
   }, [room, roomId])
@@ -53,7 +53,7 @@ export default function Game() {
           onPress={leaveRoom}
           theme="blue_Button"
         />
-        <H3>{gameRoomName}&apos;s game room</H3>
+        <H3>{room.state.gameRoomName}</H3>
       </XStack>
       <H6>
         Wait for other players to join, or start the game if you&apos;re the

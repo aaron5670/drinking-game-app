@@ -7,7 +7,7 @@ import { useSearchParams } from "expo-router";
 const CreateRoom = ({ onCreateRoom }) => {
   const params = useSearchParams();
   const [gameRoomName, setGameRoomName] = useState(
-    params.username || "Game room"
+    `${params.username}'s room` || "Game room"
   );
 
   const handleSubmit = () => {

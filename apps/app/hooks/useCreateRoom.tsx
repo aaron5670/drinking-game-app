@@ -16,7 +16,7 @@ const useCreateGameRoom = (client) => {
       .then((room) => {
         // @ts-ignore
         setRoom(room);
-        router.push(`/game/${room.id}?gameRoomName=${gameRoomName}&username=${username}`);
+        router.push(`/game/${room.id}?username=${username}`);
       });
   };
 }
