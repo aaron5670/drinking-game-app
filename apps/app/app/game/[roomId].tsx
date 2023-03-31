@@ -15,8 +15,8 @@ export default function Game() {
   const router = useRouter();
   // @ts-ignore
   const {roomId, gameRoomName, username}: {roomId: string, gameRoomName: string, username: string} = useSearchParams();
+  const {players, setRoom, setPlayer, setPlayers} = useStore((state) => state);
   const {room, player} = useGame(router.push);
-  const {players, setRoom} = useStore((state) => state);
 
   useEffect(() => {
     if (roomId && !room) {
@@ -36,6 +36,9 @@ export default function Game() {
   }
 
   const leaveRoom = () => {
+    setPlayers([]);
+    setPlayer(null);
+    setRoom(null);
     room.leave();
     router.back();
   }

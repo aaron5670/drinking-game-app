@@ -1,7 +1,9 @@
-import {useRouter} from "expo-router";
+import { useRouter, useSearchParams } from "expo-router";
 import {useStore} from "@game/client-state";
 
 const useCreateGameRoom = (client) => {
+  // @ts-ignore
+  const { username }: { username: string} = useSearchParams();
   const { setRoom } = useStore((state) => state);
   const router = useRouter();
 
@@ -9,12 +11,12 @@ const useCreateGameRoom = (client) => {
     client
       .create("game_room", {
         gameRoomName,
-        username: `user-${Math.floor(Math.random() * 999)}`,
+        username,
       })
       .then((room) => {
         // @ts-ignore
         setRoom(room);
-        router.push(`/game/${room.id}?gameRoomName=${gameRoomName}`);
+        router.push(`/game/${room.id}?gameRoomName=${gameRoomName}&username=${username}`);
       });
   };
 }

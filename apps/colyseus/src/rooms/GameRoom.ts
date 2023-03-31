@@ -8,6 +8,7 @@ import {OnGenerateQuestionsCommand} from "../commands/OnGenerateQuestionsCommand
 
 interface MyRoomOptions {
   gameRoomName: string;
+  username: string;
 }
 
 interface JoinOptions {
@@ -36,6 +37,7 @@ export class GameRoom extends Room<RoomState> {
   }
 
   onJoin(client: Client, options: JoinOptions) {
+    console.log("client joined!", options.username);
     this.dispatcher.dispatch(new OnJoinCommand(), {
       username: options.username,
       sessionId: client.sessionId,

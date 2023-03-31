@@ -11,12 +11,6 @@ module.exports = {
   web: {
     bundler: 'metro',
   },
-  extra: {
-    colyseusApiUrl: "wss://drinking-game-app-production.up.railway.app",
-    eas: {
-      projectId: "dbcb5f8c-6dac-4156-ab15-fd91f8338317"
-    }
-  },
   android: {
     package: "com.aaronvandenberg.drinkinggameapp",
     versionCode: 1
@@ -26,5 +20,12 @@ module.exports = {
   },
   runtimeVersion: {
     policy: "sdkVersion"
-  }
+  },
+  extra: {
+    colyseusApiUrl: "wss://drinking-game-app-production.up.railway.app",
+    // colyseusApiUrl: "ws://localhost:2567",
+    eas: {
+      projectId: "dbcb5f8c-6dac-4156-ab15-fd91f8338317"
+    }
+  },
 };
