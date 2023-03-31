@@ -15,7 +15,7 @@ import {
 import { MyStack } from "../components/MyStack";
 
 export default function Home() {
-  const [username, setUsername] = useState("Aaron");
+  const [username, setUsername] = useState("");
 
   return (
     <MyStack>
@@ -63,8 +63,8 @@ export default function Home() {
               <ListItem
                 hoverTheme
                 title="Aaron van den Berg"
-                pressTheme
                 icon={PersonStanding}
+                pressTheme
               />
             </Link>
           </YGroup.Item>
