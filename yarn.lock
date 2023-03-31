@@ -2405,10 +2405,10 @@
     resolve-from "^5.0.0"
     sucrase "^3.20.0"
 
-"@expo/metro-runtime@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@expo/metro-runtime/-/metro-runtime-2.0.2.tgz#9460b60a6765735acab0bfc77c0995c756f0860b"
-  integrity sha512-kGlBMcDaZNewAz1dGtNHbjOInp81Li6iRMgPRC9JB+PLKSDPUEoPeWmo3Gy+ouQDg+lgvSHM0UCqgZ0c0Ah41Q==
+"@expo/metro-runtime@2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@expo/metro-runtime/-/metro-runtime-2.0.3.tgz#654600efed47857c1e9011c95d6052b09ecf59bc"
+  integrity sha512-X0lSkD+Z14jd2jSo6mZNlzBB/dDRzGzsIX86ai9H3JDsGQ5gNhTBEsCsvCJCZSCxJ86d7OtR/L1/QdBTOeUlTg==
   dependencies:
     "@bacons/react-views" "^1.1.3"
     qs "^6.10.3"
@@ -5886,13 +5886,13 @@ expo-modules-core@1.2.6:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
-expo-router@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/expo-router/-/expo-router-1.4.2.tgz#74cd7b526893de0367951d4e4ed1b49f3dc018ed"
-  integrity sha512-u64zGQYgXrIS2vgDKKBnJFQLDxRortwn0wwRO0d03EJS47lfid5XCHiC6l+wkjBxZ3fCKG49uV2SOq4HnySO/Q==
+expo-router@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/expo-router/-/expo-router-1.4.3.tgz#8562ad52b9d565ccebba9852a5ad23d3d6acec69"
+  integrity sha512-mNjvzEsZfDAZYKAhg2co9WbHCq26pa6SOK0mYxRqtbUdl2wMxdE5IJzZupd56zw6q+M6l///7OCLDhBG5nCB7g==
   dependencies:
     "@bacons/react-views" "^1.1.3"
-    "@expo/metro-runtime" "2.0.2"
+    "@expo/metro-runtime" "2.0.3"
     "@radix-ui/react-slot" "^1.0.0"
     "@react-navigation/bottom-tabs" "~6.5.7"
     "@react-navigation/native" "~6.1.6"

@@ -1,9 +1,11 @@
-import { useStore } from "@game/client-state";
+import {useRouter} from "expo-router";
+import {useStore} from "@game/client-state";
 
 const useCreateGameRoom = (client) => {
   const { setRoom } = useStore((state) => state);
+  const router = useRouter();
 
-  const createGameRoom = (gameRoomName: string) => {
+  return (gameRoomName: string) => {
     client
       .create("game_room", {
         gameRoomName,
@@ -12,11 +14,9 @@ const useCreateGameRoom = (client) => {
       .then((room) => {
         // @ts-ignore
         setRoom(room);
-        // navigate(`/game/${room.id}`, {state: {host: true}})
+        router.push(`/game/${room.id}`);
       });
   };
-
-  return createGameRoom;
 }
 
 export default useCreateGameRoom;

@@ -1,5 +1,5 @@
 import { useColorScheme } from "react-native";
-import { Slot } from "expo-router";
+import {Slot} from "expo-router";
 import { useFonts } from "expo-font";
 import { TamaguiProvider, Theme } from "tamagui";
 import config from "../tamagui.config";
