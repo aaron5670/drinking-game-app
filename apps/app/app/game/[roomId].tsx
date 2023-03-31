@@ -20,7 +20,6 @@ export default function Game() {
 
   useEffect(() => {
     if (roomId && !room) {
-      console.log("joining room");
       client.joinById(roomId, {username})
         // @ts-ignore
         .then(room => setRoom(room))
