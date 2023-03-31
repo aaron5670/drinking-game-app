@@ -1,26 +1,55 @@
 import { useColorScheme } from "react-native";
-import {Slot} from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import { SplashScreen, Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { TamaguiProvider, Theme } from "tamagui";
-import config from "../tamagui.config";
 
-export default function HomeLayout() {
+import config from "../tamagui.config";
+import { emerald, zinc } from "../utils/colors";
+
+export default function Layout() {
   const colorScheme = useColorScheme();
 
   const [loaded] = useFonts({
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
-    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
+    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf")
   });
 
   if (!loaded) {
-    return null;
+    return <SplashScreen />;
   }
 
   return (
-    <TamaguiProvider config={config}>
-      <Theme name={colorScheme === "dark" ? "dark" : "light"}>
-        <Slot />
-      </Theme>
-    </TamaguiProvider>
+    <ThemeProvider
+      value={{
+        colors: {
+          border: "transparent",
+          primary: emerald["600"],
+          background: zinc["900"],
+          text: zinc["100"],
+          card: zinc["700"],
+          notification: emerald["400"]
+        },
+        dark: false
+      }}
+    >
+      <TamaguiProvider config={config}>
+        <Theme name={colorScheme}>
+          <SafeAreaView style={{ flex: 1 }}>
+            <Stack
+              screenOptions={{
+                headerShown: false
+              }}
+            />
+          </SafeAreaView>
+        </Theme>
+        <StatusBar
+          style="light"
+          backgroundColor="#000000"
+        />
+      </TamaguiProvider>
+    </ThemeProvider>
   );
 }

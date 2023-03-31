@@ -1,45 +1,75 @@
-import React, { useState } from "react";
-import { YStack } from "@tamagui/stacks";
-import { Button } from "tamagui";
-import Constants from "expo-constants";
-import * as Colyseus from "colyseus.js/dist/colyseus";
-import useAvailableRooms from "../hooks/useAvailableRooms";
-import useCreateGameRoom from "../hooks/useCreateRoom";
-import AvailableGamesTitle from "../components/lobby/AvailableGamesTitle";
-import Header from "../components/lobby/Header";
-import Footer from "../components/lobby/Footer";
-import CreateRoomDialog from "../components/lobby/CreateRoomDialog";
-import GradientBackground from "../components/lobby/GradientBackground";
-import AvailableRooms from "../components/lobby/AvailableRooms";
+import { useState } from "react";
+import { PersonStanding } from "@tamagui/lucide-icons";
+import { Link } from "expo-router";
+import {
+  Button,
+  H1,
+  Input,
+  ListItem,
+  Paragraph,
+  Separator,
+  YGroup,
+  YStack
+} from "tamagui";
 
-const colyseusApiUrl = Constants.expoConfig.extra.colyseusApiUrl;
-const client = new Colyseus.Client(colyseusApiUrl);
+import { MyStack } from "../components/MyStack";
 
 export default function Home() {
-  const allRooms = useAvailableRooms(client);
-  const createGameRoom = useCreateGameRoom(client);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [username, setUsername] = useState("Aaron");
 
   return (
-    <YStack flex={1}>
-      <GradientBackground>
-        <YStack flex={1}>
-          <Header>
-            <AvailableGamesTitle>Available Games</AvailableGamesTitle>
-          </Header>
-          <AvailableRooms rooms={allRooms} />
-          <Footer>
-            <Button theme="green" w="$16" onPress={() => setIsModalOpen(true)}>
-              Create Game Room
-            </Button>
-          </Footer>
-        </YStack>
-      </GradientBackground>
-      <CreateRoomDialog
-        isOpen={isModalOpen}
-        onClose={setIsModalOpen}
-        onCreateRoom={createGameRoom}
-      />
-    </YStack>
+    <MyStack>
+      <YStack
+        space="$4"
+        maxWidth={600}
+      >
+        <H1 textAlign="center" marginTop="$10">DrinkBuddies Game.</H1>
+        <Paragraph textAlign="center">
+          Drink, Laugh, Compete, and Repeat!
+        </Paragraph>
+      </YStack>
+
+      <YStack space="$2">
+        <Input
+          value={username}
+          onChangeText={setUsername}
+          placeholder="Enter your name"
+        />
+        <Link
+          asChild
+          replace={false}
+          href={`/lobby?username=${username}`}
+        >
+          <Button
+            theme="green_Button"
+            disabled={username.length === 0}
+          >
+            Let's play
+          </Button>
+        </Link>
+      </YStack>
+
+      <YStack space="$5">
+        <YGroup
+          bordered
+          separator={<Separator />}
+          theme="green"
+        >
+          <YGroup.Item>
+            <Link
+              asChild
+              href="https://www.aaronvandenberg.nl"
+            >
+              <ListItem
+                hoverTheme
+                title="Aaron van den Berg"
+                pressTheme
+                icon={PersonStanding}
+              />
+            </Link>
+          </YGroup.Item>
+        </YGroup>
+      </YStack>
+    </MyStack>
   );
 }

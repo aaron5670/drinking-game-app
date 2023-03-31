@@ -3,10 +3,10 @@ import {Text} from "tamagui";
 
 const CardTitle = styled(Text, {
   name: "CardTitle",
-  fontSize: 24,
+  fontSize: 16,
   fontWeight: "bold",
   marginBottom: 8,
-  color: "#8e44ad",
+  color: "#006adc",
 });
 
 export default CardTitle;

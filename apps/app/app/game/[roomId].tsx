@@ -1,88 +1,78 @@
-import {usePathname, useSearchParams} from "expo-router";
-import React from 'react';
-import { Text, YStack, styled, useTheme } from 'tamagui';
+import { useEffect } from "react";
+import { useRouter, useSearchParams } from "expo-router";
+import { ArrowLeft, User, Star } from "@tamagui/lucide-icons";
+import { Button, H3, H6, ListItem, XStack, YGroup } from "tamagui";
+import { useStore } from "@game/client-state";
+import { useGame } from "@game/use-game-hook";
+import { MyStack } from "../../components/MyStack";
+import Constants from "expo-constants";
+import * as Colyseus from "colyseus.js/dist/colyseus";
 
-const GameRoomTitle = styled(Text, {
-  fontSize: '$4xl',
-  color: '$primary',
-  textAlign: 'center',
-  fontWeight: 'bold',
-  marginBottom: '$lg',
-});
-
-const PlayerList = styled(YStack, {
-  backgroundColor: '$accent',
-  borderRadius: '$md',
-  padding: '$md',
-});
-
-const Player = styled(YStack, {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  padding: '$sm',
-  borderRadius: '$sm',
-  backgroundColor: '$primary',
-  marginBottom: '$sm',
-});
-
-const PlayerName = styled(Text, {
-  fontSize: '$lg',
-  color: '$white',
-});
-
-const PlayerRole = styled(Text, {
-  fontSize: '$md',
-  color: '$white',
-});
-
-const LobbyButton = styled(YStack, {
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderRadius: '$lg',
-  padding: '$md',
-  backgroundColor: '$primary',
-  marginTop: '$lg',
-});
-
-const ButtonText = styled(Text, {
-  fontSize: '$lg',
-  color: '$white',
-});
+const colyseusApiUrl = Constants.expoConfig.extra.colyseusApiUrl;
+const client = new Colyseus.Client(colyseusApiUrl);
 
 export default function Game() {
-  const {roomId} = useSearchParams();
-  const theme = useTheme();
+  const router = useRouter();
+  // @ts-ignore
+  const {roomId, gameRoomName, username}: {roomId: string, gameRoomName: string, username: string} = useSearchParams();
+  const {room, player} = useGame(router.push);
+  const {players, setRoom} = useStore((state) => state);
+
+  useEffect(() => {
+    if (roomId && !room) {
+      console.log("joining room");
+      client.joinById(roomId, {username})
+        // @ts-ignore
+        .then(room => setRoom(room))
+        .catch((e) => {
+          console.log(e)
+          router.replace("/");
+        });
+    }
+  }, [room, roomId])
+
+  if (!room || !player) {
+    return null;
+  }
+
+  const leaveRoom = () => {
+    room.leave();
+    router.back();
+  }
 
   return (
-    <YStack space="$lg" padding="$lg" backgroundColor={theme.backgroundColor}>
-      <GameRoomTitle>Game room</GameRoomTitle>
-      <PlayerList>
-        <Player>
-          <PlayerName>Aaron</PlayerName>
-          <PlayerRole>Host</PlayerRole>
-        </Player>
-        <Player>
-          <PlayerName>Joost</PlayerName>
-          <PlayerRole>Host</PlayerRole>
-        </Player>
-        <Player>
-          <PlayerName>Rick</PlayerName>
-          <PlayerRole>Host</PlayerRole>
-        </Player>
-        {/*{players.map((player) => (*/}
-        {/*  <Player key={player.username}>*/}
-        {/*    <PlayerName>{player.username}</PlayerName>*/}
-        {/*    <PlayerRole>{player.host ? 'Host' : 'Player'}</PlayerRole>*/}
-        {/*  </Player>*/}
-        {/*))}*/}
-      </PlayerList>
-      <LobbyButton onPress={() => console.log("exit")}>
-        <ButtonText>Exit Game Room</ButtonText>
-      </LobbyButton>
-      <LobbyButton onPress={() => console.log("Start")}>
-        <ButtonText>Start Game</ButtonText>
-      </LobbyButton>
-    </YStack>
+    <MyStack justifyContent="flex-start">
+      <XStack
+        alignItems="center"
+        space="$2"
+      >
+        <Button
+          icon={ArrowLeft}
+          onPress={leaveRoom}
+          theme="blue_Button"
+        />
+        <H3>{gameRoomName}&apos;s game room</H3>
+      </XStack>
+      <H6>
+        Wait for other players to join, or start the game if you&apos;re the
+        host.
+      </H6>
+      <YGroup als="center" bordered w="100%" size="$4">
+        {players.map((player) => {
+          if (player.isHost) {
+            return (
+              <YGroup.Item key={player.sessionId}>
+                <ListItem hoverTheme icon={Star} title={player.username} subTitle="Host" />
+              </YGroup.Item>
+            );
+          }
+          return (
+            <YGroup.Item key={player.sessionId}>
+              <ListItem hoverTheme icon={User} title={player.username} />
+            </YGroup.Item>
+          );
+        })}
+      </YGroup>
+    </MyStack>
   );
 }

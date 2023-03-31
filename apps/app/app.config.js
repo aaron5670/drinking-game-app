@@ -1,10 +1,16 @@
 module.exports = {
   scheme: 'drinking-game-app',
+  name: 'DrinkBuddies',
+  slug: 'drinking-game-app',
+  splash: {
+    backgroundColor: "#ddffe2",
+    image: "./assets/splash.png",
+    resizeMode: "contain"
+  },
+  icon: "./assets/icon.png",
   web: {
     bundler: 'metro',
   },
-  name: 'Drinking Game App',
-  slug: 'drinking-game-app',
   extra: {
     colyseusApiUrl: "wss://drinking-game-app-production.up.railway.app",
     eas: {

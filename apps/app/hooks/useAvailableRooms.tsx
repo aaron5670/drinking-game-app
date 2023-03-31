@@ -20,6 +20,7 @@ const useAvailableRooms = (client) => {
     // fetch every 500ms
     const timer = setInterval(fetchRooms, 500);
 
+    // cleanup
     return () => {
       clearInterval(timer);
     };
