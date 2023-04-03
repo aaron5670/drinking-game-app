@@ -6,7 +6,7 @@ const CardTitle = styled(Text, {
   fontSize: 16,
   fontWeight: "bold",
   marginBottom: 8,
-  color: "#006adc",
+  color: "$blue10",
 });
 
 export default CardTitle;

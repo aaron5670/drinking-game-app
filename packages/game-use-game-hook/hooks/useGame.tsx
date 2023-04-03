@@ -5,8 +5,6 @@ import {useStore} from "@game/client-state";
 export const useGame = (navigate: any) => {
   const {
     room,
-    player,
-    players,
     setRoom,
     setPlayer,
     setPlayers,
@@ -47,7 +45,6 @@ export const useGame = (navigate: any) => {
         removePlayer(player);
 
         if (player.isHost) {
-          console.log('Host left the room')
           setPlayers([]);
           setPlayer(null);
           setRoom(null);
@@ -65,5 +62,5 @@ export const useGame = (navigate: any) => {
     }
   }, [room])
 
-  return {room, player, players};
+  return {room};
 }

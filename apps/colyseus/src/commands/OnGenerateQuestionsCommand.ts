@@ -12,7 +12,7 @@ const totalQuestions = 1;
 const language = "Dutch";
 const category: string = null;
 const model = "gpt-3.5-turbo"; // 'gpt-4' is more creative, but is more expensive...
-const testMode = true;
+const testMode = false;
 
 export class OnGenerateQuestionsCommand extends Command<GameRoom> {
   execute() {

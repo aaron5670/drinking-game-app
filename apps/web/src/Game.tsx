@@ -19,8 +19,8 @@ const client = new Colyseus.Client(import.meta.env.VITE_COLYSEUS_SERVER_URL);
 
 function Game() {
   const navigate = useNavigate();
-  const {room, player} = useGame(navigate);
-  const {players, gameState, setRoom} = useStore((state) => state);
+  const {room} = useGame(navigate);
+  const {player, players, gameState, setRoom} = useStore((state) => state);
   const {roomId} = useParams();
 
   useEffect(() => {
