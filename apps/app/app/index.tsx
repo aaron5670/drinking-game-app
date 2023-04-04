@@ -11,7 +11,7 @@ import {
   YGroup,
   YStack
 } from "tamagui";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MyStack } from "../components/MyStack";
 
 export default function Home() {
@@ -21,26 +21,26 @@ export default function Home() {
   useEffect(() => {
     const getUsername = async () => {
       try {
-        const value = await AsyncStorage.getItem('@username')
-        if(value !== null) {
+        const value = await AsyncStorage.getItem("@username");
+        if (value !== null) {
           setUsername(value);
-          router.push(`/lobby?username=${value}`);
+          // router.push(`/lobby?username=${value}`);
         }
-      } catch(e) {
+      } catch (e) {
         console.log(e);
       }
-    }
+    };
     getUsername();
   }, []);
 
   const storeUsername = async (value) => {
     try {
-      await AsyncStorage.setItem('@username', value)
+      await AsyncStorage.setItem("@username", value);
       router.push(`/lobby?username=${username}`);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   return (
     <MyStack>
@@ -48,7 +48,12 @@ export default function Home() {
         space="$4"
         maxWidth={600}
       >
-        <H1 textAlign="center" marginTop="$10">DrinkBuddies Game.</H1>
+        <H1
+          textAlign="center"
+          marginTop="$10"
+        >
+          DrinkBuddies Game.
+        </H1>
         <Paragraph textAlign="center">
           Drink, Laugh, Compete, and Repeat!
         </Paragraph>
@@ -60,13 +65,13 @@ export default function Home() {
           onChangeText={setUsername}
           placeholder="Enter your name"
         />
-          <Button
-            theme="green_Button"
-            disabled={username.length === 0}
-            onPress={() => storeUsername(username)}
-          >
-            Let's play
-          </Button>
+        <Button
+          theme="green_Button"
+          disabled={username.length === 0}
+          onPress={() => storeUsername(username)}
+        >
+          Let's play
+        </Button>
       </YStack>
 
       <YStack space="$5">
