@@ -34,6 +34,11 @@ export class GameRoom extends Room<RoomState> {
       this.dispatcher.dispatch(new OnGameStartCommand(), { client });
       this.dispatcher.dispatch(new OnGenerateQuestionsCommand());
     });
+
+    this.onMessage("answer", (client, message) => {
+      console.log(client.sessionId, "answered!");
+      console.log(message);
+    });
   }
 
   onJoin(client: Client, options: JoinOptions) {

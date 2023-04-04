@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "expo-router";
-import { Button, H1, H2, H4, H5, H6, Spinner, ThemeableStack, XStack } from "tamagui";
+import { Button, H2, Text, H6, Spinner, ThemeableStack, XStack, Stack } from "tamagui";
 import { useStore } from "@game/client-state";
 import { useGame } from "@game/use-game-hook";
 import { MyStack } from "../../components/MyStack";
@@ -8,6 +8,8 @@ import Constants from "expo-constants";
 import * as Colyseus from "colyseus.js/dist/colyseus";
 import GameRoom from "../../components/game/GameRoom";
 import { styled } from "@tamagui/core";
+import { Dimensions } from "react-native";
+import { Player } from "@game/colyseus-schema";
 
 const colyseusApiUrl = Constants.expoConfig.extra.colyseusApiUrl;
 const client = new Colyseus.Client(colyseusApiUrl);
@@ -20,7 +22,15 @@ const QuestionCard = styled(ThemeableStack, {
   paddingVertical: 25
 });
 
+const MyCard = styled(ThemeableStack, {
+  hoverTheme: true,
+  pressTheme: true,
+  focusTheme: true,
+  bordered: true
+});
+
 export default function Game() {
+  const { width } = Dimensions.get("screen");
   const router = useRouter();
   // @ts-ignore
   const { roomId, username }: { roomId: string, username: string } = useSearchParams();
@@ -53,6 +63,12 @@ export default function Game() {
     );
   }
 
+  const handleAnswer = (votedPlayer: Player) => {
+    room.send("answer", {
+      votedPlayer: votedPlayer.sessionId
+    });
+  }
+
   return (
     <MyStack justifyContent="center">
       {gameState?.gameStatus === "generatingQuestions" && (
@@ -63,29 +79,28 @@ export default function Game() {
       )}
 
       {gameState?.gameStatus === "ready" && (
-        <>
+        <Stack flex={1} justifyContent="space-evenly">
           <QuestionCard>
             <H2 textAlign="center">{gameState?.questions?.[0]?.question}</H2>
           </QuestionCard>
 
-          {players.filter((p) => p.sessionId !== player.sessionId).map((p) => (
+          {players
+            // TODO: Disabled for development
+            //  .filter((p) => p.sessionId !== player.sessionId)
+            .map((p) => (
             <XStack
               key={p.sessionId}
-              mt="$5"
-              flex={1}
+              rowGap={10}
+              columnGap={10}
               flexWrap="wrap"
-              justifyContent="space-around"
+              justifyContent="center"
             >
-              <Button mb="$5" size="$7" fontSize="$7" backgroundColor="$orange11" color="white">{p.username}</Button>
-              <Button mb="$5" size="$7" fontSize="$7" backgroundColor="$yellow11" color="white">{p.username}</Button>
-              <Button mb="$5" size="$7" fontSize="$7" backgroundColor="$green11" color="white">{p.username}</Button>
-              <Button mb="$5" size="$7" fontSize="$7" backgroundColor="$blue11" color="white">{p.username}</Button>
-              <Button mb="$5" size="$7" fontSize="$7" backgroundColor="$purple11" color="white">{p.username}</Button>
-              <Button mb="$5" size="$7" fontSize="$7" backgroundColor="$pink11" color="white">{p.username}</Button>
-              <Button mb="$5" size="$7" fontSize="$7" backgroundColor="$red11" color="white">{p.username}</Button>
+              <Button w={width / 2 - (12 * 2)} h={100} backgroundColor="$blue11" onPress={() => handleAnswer(p)}>
+                <Text color="white" textAlign="center" fontSize={16}>{p.username}</Text>
+              </Button>
             </XStack>
           ))}
-        </>
+        </Stack>
       )}
     </MyStack>
   );
