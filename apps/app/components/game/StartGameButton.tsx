@@ -1,5 +1,5 @@
 import Footer from "../lobby/Footer";
-import { Button } from "tamagui";
+import { Button, H6 } from "tamagui";
 import React from "react";
 import { useStore } from "@game/client-state";
 import { useGame } from "@game/use-game-hook";
@@ -10,15 +10,22 @@ const StartGameButton = () => {
   const { room } = useGame(router.push);
   const { players, player } = useStore((state) => state);
 
-  if (!player.isHost) return null;
-
-  if (players.length <= 1) {
+  if (!player.isHost) {
     return (
       <Footer>
-        <Button disabled>Waiting for other players</Button>
+        <H6>Wait for the host to start the game...</H6>
       </Footer>
-    );
+    )
   }
+
+  //TODO: Disabled for now for development purposes
+  // if (players.length <= 1) {
+  //   return (
+  //     <Footer>
+  //       <Button disabled>Waiting for other players</Button>
+  //     </Footer>
+  //   );
+  // }
 
   return (
     <Footer>

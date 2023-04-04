@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PersonStanding } from "@tamagui/lucide-icons";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import {
   Button,
   H1,
@@ -11,11 +11,36 @@ import {
   YGroup,
   YStack
 } from "tamagui";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MyStack } from "../components/MyStack";
 
 export default function Home() {
+  const router = useRouter();
   const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const getUsername = async () => {
+      try {
+        const value = await AsyncStorage.getItem('@username')
+        if(value !== null) {
+          setUsername(value);
+          router.push(`/lobby?username=${value}`);
+        }
+      } catch(e) {
+        console.log(e);
+      }
+    }
+    getUsername();
+  }, []);
+
+  const storeUsername = async (value) => {
+    try {
+      await AsyncStorage.setItem('@username', value)
+      router.push(`/lobby?username=${username}`);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <MyStack>
@@ -35,18 +60,13 @@ export default function Home() {
           onChangeText={setUsername}
           placeholder="Enter your name"
         />
-        <Link
-          asChild
-          replace={false}
-          href={`/lobby?username=${username}`}
-        >
           <Button
             theme="green_Button"
             disabled={username.length === 0}
+            onPress={() => storeUsername(username)}
           >
             Let's play
           </Button>
-        </Link>
       </YStack>
 
       <YStack space="$5">

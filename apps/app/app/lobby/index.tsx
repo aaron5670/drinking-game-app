@@ -4,7 +4,6 @@ import { useRouter } from "expo-router";
 import { ArrowLeft } from "@tamagui/lucide-icons";
 import * as Colyseus from "colyseus.js/dist/colyseus";
 import useAvailableRooms from "../../hooks/useAvailableRooms";
-import useCreateGameRoom from "../../hooks/useCreateRoom";
 import Footer from "../../components/lobby/Footer";
 import CreateRoom from "../../components/lobby/CreateRoom";
 import AvailableRooms from "../../components/lobby/AvailableRooms";
@@ -16,7 +15,6 @@ const client = new Colyseus.Client(colyseusApiUrl);
 export default function Lobby() {
   const router = useRouter();
   const allRooms = useAvailableRooms(client);
-  const createGameRoom = useCreateGameRoom(client);
 
   return (
     <MyStack justifyContent="flex-start">
@@ -34,7 +32,7 @@ export default function Lobby() {
       <H6>Create a game room, or join an existing one.</H6>
       <AvailableRooms rooms={allRooms} />
       <Footer>
-        <CreateRoom onCreateRoom={createGameRoom} />
+        <CreateRoom />
       </Footer>
     </MyStack>
   );

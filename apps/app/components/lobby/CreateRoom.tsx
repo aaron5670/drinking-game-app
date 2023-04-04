@@ -1,24 +1,46 @@
 import React, { useState } from "react";
-import { Adapt, Button, Dialog, Fieldset, Input, Label, Sheet, Unspaced } from "tamagui";
+import { Adapt, Button, Dialog, Fieldset, Input, Label, Sheet, Spinner } from "tamagui";
 import { YStack } from "@tamagui/stacks";
-import { X } from "@tamagui/lucide-icons";
-import { useSearchParams } from "expo-router";
+import { useRouter, useSearchParams } from "expo-router";
+import useCreateGameRoom from "../../hooks/useCreateRoom";
+import Constants from "expo-constants";
+import * as Colyseus from "colyseus.js/dist/colyseus";
+import { useGame } from "@game/use-game-hook";
+import { useStore } from "@game/client-state";
 
-const CreateRoom = ({ onCreateRoom }) => {
+const colyseusApiUrl = Constants.expoConfig.extra.colyseusApiUrl;
+const client = new Colyseus.Client(colyseusApiUrl);
+
+const CreateRoom = () => {
+  const router = useRouter();
   const params = useSearchParams();
+  const createGameRoom = useCreateGameRoom(client);
+  const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const { setRoom } = useStore((state) => state);
+  const { room } = useGame(router.push);
   const [gameRoomName, setGameRoomName] = useState(
     `${params.username}'s room` || "Game room"
   );
 
-  const handleSubmit = () => {
-    onCreateRoom(gameRoomName);
+  const handleCreateRoom = () => {
+    setLoading(true);
+    createGameRoom(gameRoomName)
+      .then((room) => {
+        setRoom(room);
+        setLoading(false);
+        setIsOpen(false);
+        router.push(`/game/${room.id}?username=${params.username}`);
+      })
+      .catch((e) => {
+        console.log(e);
+        setLoading(false);
+      });
   };
 
   return (
-    <Dialog modal>
-      <Dialog.Trigger asChild>
-        <Button theme="green">Create Game Room</Button>
-      </Dialog.Trigger>
+    <Dialog modal open={isOpen}>
+      <Button theme="green" onPress={() => setIsOpen(true)}>Create Game Room</Button>
 
       <Adapt
         when="sm"
@@ -81,25 +103,16 @@ const CreateRoom = ({ onCreateRoom }) => {
             />
           </Fieldset>
           <YStack ai="center" mt="$2">
-            <Dialog.Close displayWhenAdapted asChild>
-              <Button theme="green" w="$16" onPress={handleSubmit}>
-                Create room
-              </Button>
-            </Dialog.Close>
+            <Button
+              theme="green"
+              w="$16"
+              icon={loading ? <Spinner /> : null}
+              disabled={room !== null}
+              onPress={handleCreateRoom}
+            >
+              Create room
+            </Button>
           </YStack>
-
-          <Unspaced>
-            <Dialog.Close asChild>
-              <Button
-                pos="absolute"
-                top="$3"
-                right="$3"
-                size="$2"
-                circular
-                icon={X}
-              />
-            </Dialog.Close>
-          </Unspaced>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog>
