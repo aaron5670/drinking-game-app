@@ -18,8 +18,8 @@ const client = new Colyseus.Client(colyseusApiUrl);
 export default function Lobby() {
   const router = useRouter();
   const allRooms = useAvailableRooms(client);
-  const {room} = useGame(router.push);
-  const {resetGame} = useStore((state) => state);
+  const { room } = useGame(router.push);
+  const { resetGame } = useStore((state) => state);
 
   useEffect(() => {
     if (room) {

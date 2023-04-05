@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "expo-router";
-import { Button, H2, Text, H6, Spinner, ThemeableStack, XStack, Stack } from "tamagui";
+import { Button, H2, Text, Spinner, ThemeableStack, XStack, Stack } from "tamagui";
 import { useStore } from "@game/client-state";
 import { useGame } from "@game/use-game-hook";
 import { MyStack } from "../../components/MyStack";
@@ -10,6 +10,8 @@ import GameRoom from "../../components/game/GameRoom";
 import { styled } from "@tamagui/core";
 import { Dimensions } from "react-native";
 import { Player } from "@game/colyseus-schema";
+import GeneratingQuestionsStack from "../../components/game/GeneratingQuestionsStack";
+import LeaderboardStack from "../../components/game/LeaderboardStack";
 
 const colyseusApiUrl = Constants.expoConfig.extra.colyseusApiUrl;
 const client = new Colyseus.Client(colyseusApiUrl);
@@ -20,13 +22,6 @@ const QuestionCard = styled(ThemeableStack, {
   borderRadius: 10,
   paddingHorizontal: 25,
   paddingVertical: 25
-});
-
-const MyCard = styled(ThemeableStack, {
-  hoverTheme: true,
-  pressTheme: true,
-  focusTheme: true,
-  bordered: true
 });
 
 export default function Game() {
@@ -49,6 +44,12 @@ export default function Game() {
     }
   }, [room, roomId]);
 
+  const handleAnswer = (votedPlayer: Player) => {
+    room.send("answer", {
+      sessionId: votedPlayer.sessionId
+    });
+  }
+
   if (!room || !player) {
     return (
       <MyStack justifyContent="center">
@@ -63,31 +64,20 @@ export default function Game() {
     );
   }
 
-  const handleAnswer = (votedPlayer: Player) => {
-    room.send("answer", {
-      sessionId: votedPlayer.sessionId
-    });
+  if (gameState?.gameStatus === "generatingQuestions") {
+    return (
+      <GeneratingQuestionsStack />
+    )
+  }
+
+  if (gameState?.gameStatus === "finished") {
+    return (
+      <LeaderboardStack />
+    )
   }
 
   return (
     <MyStack justifyContent="center">
-      {gameState?.gameStatus === "generatingQuestions" && (
-        <>
-          <Spinner size="large" color="$green10" />
-          <H6 pt="$5" textAlign="center">Generating questions...</H6>
-        </>
-      )}
-
-      {gameState?.gameStatus === "finished" && (
-        <Stack flex={1} justifyContent="center" alignItems="center">
-          <H2 textAlign="center">Game finished!</H2>
-          <H6 pt="$5" textAlign="center">The winner is Aaron</H6>
-          <Button mt="$5" theme="green" onPress={() => router.replace(`/lobby?username=${username}`)}>
-            <Text color="white" textAlign="center" fontSize={16}>Back to lobby</Text>
-          </Button>
-        </Stack>
-      )}
-
       {gameState?.gameStatus === "ready" && (
         <Stack flex={1} justifyContent="space-evenly">
           <QuestionCard>

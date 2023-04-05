@@ -1,9 +1,9 @@
-import Footer from "../lobby/Footer";
-import { Button, H6 } from "tamagui";
 import React from "react";
 import { useStore } from "@game/client-state";
 import { useGame } from "@game/use-game-hook";
 import { useRouter } from "expo-router";
+import { Button, H6 } from "tamagui";
+import Footer from "../lobby/Footer";
 
 const StartGameButton = () => {
   const router = useRouter();
@@ -29,7 +29,7 @@ const StartGameButton = () => {
 
   return (
     <Footer>
-      <Button theme="green" onPress={() => room.send('startGame')}>
+      <Button theme="green" w="$20" onPress={() => room.send('startGame')}>
         Start the Game
       </Button>
     </Footer>

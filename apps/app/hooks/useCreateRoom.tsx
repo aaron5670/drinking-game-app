@@ -4,11 +4,12 @@ const useCreateGameRoom = (client) => {
   // @ts-ignore
   const { username }: { username: string} = useSearchParams();
 
-  return (gameRoomName: string) => {
+  return (gameRoomName: string, category: string) => {
     return client
       .create("game_room", {
         gameRoomName,
         username,
+        category
       })
   };
 }

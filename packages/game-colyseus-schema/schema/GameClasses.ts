@@ -42,6 +42,7 @@ export class Player extends Schema {
 
 export class GameState extends Schema {
   @type([Question]) questions: (Question)[] = new ArraySchema<Question>();
+  @type("string") category: string;
   @type("number") score: number = 0;
   @type("string") gameStatus: GameStatus = "idle";
   @type("boolean") gameStarted: boolean = false;

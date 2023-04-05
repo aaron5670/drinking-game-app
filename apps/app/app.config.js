@@ -22,8 +22,8 @@ module.exports = {
     policy: "sdkVersion"
   },
   extra: {
-    // colyseusApiUrl: "wss://drinking-game-app-production.up.railway.app",
-    colyseusApiUrl: "ws://localhost:2567",
+    colyseusApiUrl: "wss://drinking-game-app-production.up.railway.app",
+    // colyseusApiUrl: "ws://localhost:2567",
     eas: {
       projectId: "dbcb5f8c-6dac-4156-ab15-fd91f8338317"
     }

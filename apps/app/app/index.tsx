@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PersonStanding } from "@tamagui/lucide-icons";
+import { Heart } from "@tamagui/lucide-icons";
 import { Link, useRouter } from "expo-router";
 import {
   Button,
@@ -24,7 +24,6 @@ export default function Home() {
         const value = await AsyncStorage.getItem("@username");
         if (value !== null) {
           setUsername(value);
-          router.push(`/lobby?username=${value}`);
         }
       } catch (e) {
         console.log(e);
@@ -87,8 +86,9 @@ export default function Home() {
             >
               <ListItem
                 hoverTheme
-                title="Aaron van den Berg"
-                icon={PersonStanding}
+                title="Made by Aaron van den Berg"
+                icon={Heart}
+                scaleIcon={1.4}
                 pressTheme
               />
             </Link>

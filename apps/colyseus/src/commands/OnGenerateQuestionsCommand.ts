@@ -10,13 +10,13 @@ const openai = new OpenAIApi(configuration);
 
 const totalQuestions = 10;
 const language = "Dutch";
-const category: string = null;
-const model: "gpt-3.5-turbo" | "gpt-4" = "gpt-3.5-turbo"; // 'gpt-4' is more creative, but is more expensive...
+const model: "gpt-3.5-turbo" | "gpt-4" = "gpt-4"; // 'gpt-4' is more creative, but is more expensive...
 const testMode = false;
 
 export class OnGenerateQuestionsCommand extends Command<GameRoom> {
   execute() {
     this.state.gameState.gameStatus = "generatingQuestions";
+    const category = this.state.gameState.category;
 
     if (testMode) {
       // set fake questions
@@ -51,8 +51,12 @@ export class OnGenerateQuestionsCommand extends Command<GameRoom> {
             "Format the questions as an unordered list.",
         },
         {
+          role: "assistant",
+          content: '- Who has the most tattoos?\n- Who goes on vacation the most?\n- Who has the most pets?'
+        },
+        {
           role: "user",
-          content: `Generate ${totalQuestions} random questions ${category ? `about ${category}.` : "."}`,
+          content: `Generate ${totalQuestions} random questions ${category ? ` with as category "${category}".` : "."}`,
         },
       ],
     })

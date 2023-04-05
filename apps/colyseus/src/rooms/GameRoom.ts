@@ -9,7 +9,7 @@ import { OnQuestionAnsweredCommand } from "../commands/OnQuestionAnsweredCommand
 
 interface MyRoomOptions {
   gameRoomName: string;
-  username: string;
+  category: string;
 }
 
 interface JoinOptions {
@@ -29,10 +29,12 @@ export class GameRoom extends Room<GameClasses> {
 
     // set gameRoomName
     this.state.gameRoomName = options.gameRoomName;
+    this.state.gameState.category = options.category.length > 0 ? options.category : null;
 
     // set metadata (for lobby)
     this.setMetadata({
-      gameRoomName: options.gameRoomName
+      gameRoomName: options.gameRoomName,
+      category: options.category,
     }).then(() => updateLobby(this))
 
     this.onMessage("startGame", (client) => {
@@ -46,14 +48,12 @@ export class GameRoom extends Room<GameClasses> {
   }
 
   onJoin(client: Client, options: JoinOptions) {
-    console.log("client joined!", options.username);
     this.dispatcher.dispatch(new OnJoinCommand(), {
       username: options.username,
       sessionId: client.sessionId,
       isHost: this.state.players.length === 0
     });
-
-    console.log(client.sessionId, "joined!");
+    console.log("client joined!", options.username);
     console.log(`total players: ${this.clients.length}`);
   }
 

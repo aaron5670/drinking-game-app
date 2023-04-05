@@ -19,13 +19,14 @@ const CreateRoom = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { setRoom } = useStore((state) => state);
   const { room } = useGame(router.push);
+  const [category, setCategory] = useState("");
   const [gameRoomName, setGameRoomName] = useState(
     `${params.username}'s room` || "Game room"
   );
 
   const handleCreateRoom = () => {
     setLoading(true);
-    createGameRoom(gameRoomName)
+    createGameRoom(gameRoomName, category)
       .then((room) => {
         setRoom(room);
         setLoading(false);
@@ -40,7 +41,7 @@ const CreateRoom = () => {
 
   return (
     <Dialog modal open={isOpen}>
-      <Button theme="green" onPress={() => setIsOpen(true)}>Create Game Room</Button>
+      <Button theme="green" onPress={() => setIsOpen(true)} w="$20">Create Game Room</Button>
 
       <Adapt
         when="sm"
@@ -48,7 +49,7 @@ const CreateRoom = () => {
       >
         <Sheet
           zIndex={200000}
-          snapPoints={[40]}
+          snapPoints={[48]}
           modal
           dismissOnSnapToBottom
         >
@@ -100,6 +101,15 @@ const CreateRoom = () => {
               size="$4"
               defaultValue={gameRoomName as string}
               onChangeText={(value) => setGameRoomName(value)}
+            />
+          </Fieldset>
+          <Fieldset>
+            <Label w={160} justifyContent="center">
+              Category
+            </Label>
+            <Input
+              size="$4"
+              onChangeText={(value) => setCategory(value)}
             />
           </Fieldset>
           <YStack ai="center" mt="$2">
