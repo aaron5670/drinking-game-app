@@ -40,7 +40,7 @@ const CreateRoom = () => {
   };
 
   return (
-    <Dialog modal open={isOpen}>
+    <Dialog modal open={isOpen} onOpenChange={setIsOpen}>
       <Button theme="green" onPress={() => setIsOpen(true)} w="$20">Create Game Room</Button>
 
       <Adapt
@@ -49,7 +49,7 @@ const CreateRoom = () => {
       >
         <Sheet
           zIndex={200000}
-          snapPoints={[48]}
+          snapPoints={[55]}
           modal
           dismissOnSnapToBottom
         >
