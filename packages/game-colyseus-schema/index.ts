@@ -1,2 +1,1 @@
-export * from "./schema/Player";
-export * from "./schema/RoomState";
+export * from "./schema/GameClasses";

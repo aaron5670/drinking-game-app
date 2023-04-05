@@ -24,7 +24,7 @@ export default function Home() {
         const value = await AsyncStorage.getItem("@username");
         if (value !== null) {
           setUsername(value);
-          // router.push(`/lobby?username=${value}`);
+          router.push(`/lobby?username=${value}`);
         }
       } catch (e) {
         console.log(e);

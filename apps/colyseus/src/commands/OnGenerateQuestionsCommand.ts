@@ -8,7 +8,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const totalQuestions = 1;
+const totalQuestions = 10;
 const language = "Dutch";
 const category: string = null;
 const model: "gpt-3.5-turbo" | "gpt-4" = "gpt-3.5-turbo"; // 'gpt-4' is more creative, but is more expensive...
@@ -25,9 +25,6 @@ export class OnGenerateQuestionsCommand extends Command<GameRoom> {
         new Question({question: "Wie gaat het vaakst op vakantie?"}),
         new Question({question: "Wie heeft de meeste huisdieren?"}),
       ];
-
-      // set random player as current player
-      this.state.gameState.currentPlayer = this.state.players[Math.floor(Math.random() * this.state.players.length)];
 
       // set game status to ready
       this.state.gameState.gameStatus = "ready";
@@ -70,8 +67,8 @@ export class OnGenerateQuestionsCommand extends Command<GameRoom> {
         // set questions (slice first element because it is empty)
         this.state.gameState.questions = questions.slice(1, questions.length);
 
-        // set random player as current player
-        this.state.gameState.currentPlayer = this.state.players[Math.floor(Math.random() * this.state.players.length)];
+        // set total rounds
+        this.state.gameState.totalRounds = questions.slice(1, questions.length).length;
 
         // set game status to ready
         this.state.gameState.gameStatus = "ready";

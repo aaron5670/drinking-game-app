@@ -1,10 +1,11 @@
 import {Room, Client, updateLobby} from "colyseus";
-import {RoomState} from "@game/colyseus-schema";
+import {GameClasses} from "@game/colyseus-schema";
 import {Dispatcher} from "@colyseus/command";
 import {OnJoinCommand} from "../commands/OnJoinCommand";
 import {OnLeaveCommand} from "../commands/OnLeaveCommand";
 import {OnGameStartCommand} from "../commands/OnGameStartCommand";
 import {OnGenerateQuestionsCommand} from "../commands/OnGenerateQuestionsCommand";
+import { OnQuestionAnsweredCommand } from "../commands/OnQuestionAnsweredCommand";
 
 interface MyRoomOptions {
   gameRoomName: string;
@@ -15,11 +16,15 @@ interface JoinOptions {
   username: string;
 }
 
-export class GameRoom extends Room<RoomState> {
+interface AnswerOptions {
+  sessionId: string;
+}
+
+export class GameRoom extends Room<GameClasses> {
   private dispatcher = new Dispatcher(this);
 
   onCreate(options: MyRoomOptions) {
-    this.setState(new RoomState());
+    this.setState(new GameClasses());
     this.maxClients = 8;
 
     // set gameRoomName
@@ -35,9 +40,8 @@ export class GameRoom extends Room<RoomState> {
       this.dispatcher.dispatch(new OnGenerateQuestionsCommand());
     });
 
-    this.onMessage("answer", (client, message) => {
-      console.log(client.sessionId, "answered!");
-      console.log(message);
+    this.onMessage("answer", (client, message: AnswerOptions) => {
+      this.dispatcher.dispatch(new OnQuestionAnsweredCommand(), { client, sessionId: message.sessionId });
     });
   }
 

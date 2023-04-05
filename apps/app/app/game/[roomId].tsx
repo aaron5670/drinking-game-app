@@ -65,7 +65,7 @@ export default function Game() {
 
   const handleAnswer = (votedPlayer: Player) => {
     room.send("answer", {
-      votedPlayer: votedPlayer.sessionId
+      sessionId: votedPlayer.sessionId
     });
   }
 
@@ -78,10 +78,20 @@ export default function Game() {
         </>
       )}
 
+      {gameState?.gameStatus === "finished" && (
+        <Stack flex={1} justifyContent="center" alignItems="center">
+          <H2 textAlign="center">Game finished!</H2>
+          <H6 pt="$5" textAlign="center">The winner is Aaron</H6>
+          <Button mt="$5" theme="green" onPress={() => router.replace(`/lobby?username=${username}`)}>
+            <Text color="white" textAlign="center" fontSize={16}>Back to lobby</Text>
+          </Button>
+        </Stack>
+      )}
+
       {gameState?.gameStatus === "ready" && (
         <Stack flex={1} justifyContent="space-evenly">
           <QuestionCard>
-            <H2 textAlign="center">{gameState?.questions?.[0]?.question}</H2>
+            <H2 textAlign="center">{gameState?.questions?.[gameState.round - 1]?.question}</H2>
           </QuestionCard>
 
           {players

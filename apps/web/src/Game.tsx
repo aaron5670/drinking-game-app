@@ -14,6 +14,7 @@ import {useStore} from "@game/client-state";
 import GameRoom from "./Components/GameRoom";
 import * as Colyseus from "colyseus.js";
 import LoadingSpinner from "./Components/LoadingSpinner";
+import { Player } from "@game/colyseus-schema";
 
 const client = new Colyseus.Client(import.meta.env.VITE_COLYSEUS_SERVER_URL);
 
@@ -44,6 +45,12 @@ function Game() {
     )
   }
 
+  const handleAnswer = (votedPlayer: Player) => {
+    room.send("answer", {
+      sessionId: votedPlayer.sessionId
+    });
+  }
+
   return (
     <main>
       <Container>
@@ -53,14 +60,27 @@ function Game() {
             <LoadingSpinner message={"Generating some questions..."}/>
           )}
 
+          {gameState?.gameStatus === "finished" && (
+            <Card align='center'>
+              <CardHeader textAlign="center">
+                <Heading fontSize="2xl">Game finished</Heading>
+              </CardHeader>
+            </Card>
+          )}
+
           {gameState?.gameStatus === "ready" && (
             <Card align='center'>
               <CardHeader textAlign="center">
-                <Heading fontSize="2xl">{gameState?.questions?.[0].question}</Heading>
+                <Heading fontSize="2xl">{gameState?.questions?.[gameState.round - 1]?.question}</Heading>
               </CardHeader>
               <CardFooter justifyContent="space-around">
-                {players.filter((p) => p.sessionId !== player.sessionId).map((p) => (
-                  <Button key={p.sessionId} size="lg" colorScheme='whatsapp'>{p.username}</Button>
+                {players
+                  // TODO: Disabled for development
+                  // .filter((p) => p.sessionId !== player.sessionId)
+                  .map((p) => (
+                  <Button key={p.sessionId} size="lg" colorScheme='whatsapp' onClick={() => handleAnswer(p)}>
+                    {p.username}
+                  </Button>
                 ))}
               </CardFooter>
             </Card>

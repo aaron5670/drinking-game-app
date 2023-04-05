@@ -14,6 +14,7 @@ interface State {
   addPlayer: (player: Player) => void;
   removePlayer: (player: Player) => void;
   setGameState: (field: string, value: any) => void;
+  resetGame: () => void;
 }
 
 export const useStore = create<State>((set) => ({
@@ -32,5 +33,11 @@ export const useStore = create<State>((set) => ({
       ...draft.gameState,
       [field]: value
     };
+  })),
+  resetGame: () => set(() => ({
+    room: null,
+    players: [],
+    player: null,
+    gameState: null
   }))
 }))
