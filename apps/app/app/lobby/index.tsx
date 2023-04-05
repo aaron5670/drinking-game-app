@@ -36,7 +36,7 @@ export default function Lobby() {
       >
         <Button
           icon={ArrowLeft}
-          onPress={router.back}
+          onPress={() => router.replace("/")}
           theme="blue_Button"
         />
         <H3>Game lobby</H3>
