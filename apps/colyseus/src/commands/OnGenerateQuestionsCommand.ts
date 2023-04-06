@@ -10,7 +10,7 @@ const openai = new OpenAIApi(configuration);
 
 const totalQuestions = 10;
 const language = "Dutch";
-const model: "gpt-3.5-turbo" | "gpt-4" = "gpt-3.5-turbo"; // 'gpt-4' is more creative, but is more expensive...
+const model: "gpt-3.5-turbo" | "gpt-4" = "gpt-4"; // 'gpt-4' is more creative, but is more expensive...
 const testMode = false;
 
 export class OnGenerateQuestionsCommand extends Command<GameRoom> {
